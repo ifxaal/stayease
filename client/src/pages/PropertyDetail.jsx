@@ -185,10 +185,10 @@ function PropertyDetail() {
       <img
         src={
           property.image
-            ? `http://localhost:5000${property.image}`
+            ? property.image.startsWith("http") ? property.image : `http://localhost:5000${property.image}`
             : property.images && property.images.length > 0
             ? property.images[0]
-            : "https://picsum.photos/800/400"
+            : "/images/house1.jpg"
         }
         alt={property.title}
         style={{

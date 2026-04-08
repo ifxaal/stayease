@@ -6,6 +6,8 @@ StayEase is a MERN stack property booking platform built as an end-to-end full s
 It supports secure authentication, listings management, booking workflows, and reviews with a
 modern, responsive UI.
 
+**Live Demo:** [https://stayease-ifxaals-projects.vercel.app](https://stayease-ifxaals-projects.vercel.app)
+
 ## Core Features
 
 - JWT authentication (register, login, protected routes)

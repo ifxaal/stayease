@@ -1,0 +1,73 @@
+diff --git a/.gitignore b/.gitignore
+index 046e9c1..e1f5e9c 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -5,3 +5,4 @@ server/node_modules/
+ server/.env
+ uploads/
+ .vercel
++.env*.local
+diff --git a/client/public/index.html b/client/public/index.html
+index c38cdf0..3583be7 100644
+--- a/client/public/index.html
++++ b/client/public/index.html
+@@ -9,6 +9,9 @@
+       name="description"
+       content="StayEase - Find and book unique stays with ease."
+     />
++    <meta property="og:title" content="StayEase" />
++    <meta property="og:site_name" content="StayEase" />
++    <meta property="og:description" content="StayEase - Find and book unique stays with ease." />
+     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+     <!--
+       manifest.json provides metadata used when your web app is installed on a
+diff --git a/client/src/components/Navbar.jsx b/client/src/components/Navbar.jsx
+index 3aa151a..b9b540f 100644
+--- a/client/src/components/Navbar.jsx
++++ b/client/src/components/Navbar.jsx
+@@ -1,9 +1,11 @@
+ import { Link, useLocation, useNavigate } from "react-router-dom";
+-import { useEffect, useState } from "react";
++import { useEffect, useState, useContext } from "react";
++import { AuthContext } from "../context/AuthContext";
+ 
+ function Navbar() {
+   const navigate = useNavigate();
+   const location = useLocation();
++  const { setUser } = useContext(AuthContext);
+   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+ 
+   useEffect(() => {
+@@ -26,6 +28,7 @@ function Navbar() {
+   const handleLogout = () => {
+     localStorage.removeItem("token");
+     setIsLoggedIn(false);
++    setUser(null);
+     navigate("/login");
+   };
+ 
+diff --git a/client/src/pages/Login.jsx b/client/src/pages/Login.jsx
+index e6e5905..aa906c5 100644
+--- a/client/src/pages/Login.jsx
++++ b/client/src/pages/Login.jsx
+@@ -1,9 +1,11 @@
+-import { useState } from "react";
++import { useState, useContext } from "react";
+ import { useNavigate } from "react-router-dom";
+ import api from "../api/axios";
++import { AuthContext } from "../context/AuthContext";
+ 
+ function Login() {
+   const navigate = useNavigate();
++  const { setUser } = useContext(AuthContext);
+   const [form, setForm] = useState({
+     email: "",
+     password: "",
+@@ -29,6 +31,7 @@ function Login() {
+       const res = await api.post("/auth/login", form);
+ 
+       localStorage.setItem("token", res.data.token);
++      setUser(res.data.user);
+       navigate("/");
+     } catch (err) {
+       setError(err.response?.data?.message || "Login failed");

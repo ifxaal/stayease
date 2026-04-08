@@ -158,29 +158,32 @@ function Properties() {
       )}
 
       <div className="grid">
-        {properties.map((p) => (
-          <div
-            key={p._id}
-            onClick={() => navigate(`/properties/${p._id}`)}
-            className="property-card"
-          >
-            <img
-              src={
-                p.image
-                  ? `http://localhost:5000${p.image}`
-                  : p.images && p.images.length > 0
-                  ? p.images[0]
-                  : "https://picsum.photos/400/300"
-              }
-              alt={p.title}
-            />
-            <div className="property-card-body">
-              <h3 className="property-title">{p.title}</h3>
-              <p className="muted" style={{ margin: "0.35rem 0 0" }}>{p.location}</p>
-              <p className="price">₹{p.pricePerNight} / night</p>
+        {properties.map((p, index) => {
+          const fallbackImages = ["/images/house1.jpg", "/images/house2.jpg", "/images/house3.jpg"];
+          return (
+            <div
+              key={p._id}
+              onClick={() => navigate(`/properties/${p._id}`)}
+              className="property-card"
+            >
+              <img
+                src={
+                  p.image
+                    ? p.image.startsWith("http") ? p.image : `http://localhost:5000${p.image}`
+                    : p.images && p.images.length > 0
+                    ? p.images[0]
+                    : fallbackImages[index % fallbackImages.length]
+                }
+                alt={p.title}
+              />
+              <div className="property-card-body">
+                <h3 className="property-title">{p.title}</h3>
+                <p className="muted" style={{ margin: "0.35rem 0 0" }}>{p.location}</p>
+                <p className="price">₹{p.pricePerNight} / night</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

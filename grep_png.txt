@@ -1,0 +1,4 @@
+client/public/index.html:    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+client/public/manifest.json:      "src": "logo192.png",
+client/public/manifest.json:      "src": "logo512.png",
+client/src/pages/MyProperties.jsx:        : "/images/house2.jpg"

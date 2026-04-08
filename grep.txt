@@ -1,0 +1,8 @@
+client/src/pages/MyProperties.jsx:      : p.images && p.images.length > 0
+client/src/pages/MyProperties.jsx:        ? p.images[0]
+client/src/pages/MyProperties.jsx:        : "/images/house2.jpg"
+client/src/pages/Properties.jsx:                  : p.images && p.images.length > 0
+client/src/pages/Properties.jsx:                  ? p.images[0]
+client/src/pages/PropertyDetail.jsx:            : property.images && property.images.length > 0
+client/src/pages/PropertyDetail.jsx:            ? property.images[0]
+server/models/Property.js:    images: [
